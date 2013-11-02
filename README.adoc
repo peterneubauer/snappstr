@@ -1,4 +1,4 @@
-= Snappstr
+== Snappstr
 
 This is a the code for an application done at http://mmhw.eventbrite.com/[Malmö Music Hack day]. 
 It combines the power of https://github.com/neo4j/spatial[Neoj4 Spatial] http://userbin.com[Userbin] and Open Streetmap data to find
