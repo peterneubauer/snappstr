@@ -20,19 +20,19 @@ angular.module('snapplrApp')
             $log.info("new features", $scope.starredFeatures);
         });
         $scope.reset = function () {
-            if (!Userbin.user()) return false; 
+            if (!Userbin.user()) return false;
             Userbin.user().set("snapplr", {}).done(function () {
                 $log.info("cleared", arguments);
                 Userbin.user().get("snapplr").done(function (features) {
                     var feature = features.snapplr;
                     $log.info('got', feature);
-                    $scope.starredFeatures = feature; 
+                    $scope.starredFeatures = feature;
                     $scope.$apply();
                 });
             });
         }
-        
-        var refresh = function() {
+
+        var refresh = function () {
             $scope.starredFeatures = [];
             if (!$scope.$$phase) $scope.$apply();
             if (!Userbin.user()) return false;
@@ -40,10 +40,12 @@ angular.module('snapplrApp')
                 $log.info(arguments);
                 $scope.starredFeatures = features.snapplr;
                 $scope.$apply();
-            });           
+            });
         }
         refresh();
-        Userbin.on('login.success logout.success', function() { refresh(); })
+        Userbin.on('login.success logout.success', function () {
+            refresh();
+        })
     }
 )
     .
@@ -87,14 +89,14 @@ angular.module('snapplrApp')
                                 alert("no features found");
                                 return;
                             }
-                            var defaultStyle = {
+                            var defaultStyleBuilding = {
                                 color: "#2262CC",
                                 weight: 2,
                                 opacity: 0.6,
                                 fillOpacity: 0.1,
                                 fillColor: "#2262CC"
                             };
-                            var highlightStyle = {
+                            var highlightStyleBuilding = {
                                 color: '#2262CC',
                                 weight: 3,
                                 opacity: 0.6,
@@ -121,7 +123,7 @@ angular.module('snapplrApp')
                                             for (var i = 0; i < data.length; i++) {
                                                 polygonData.push([data[i][1], data[i][2]])
                                             }
-                                            var polygon = L.polygon(polygonData, defaultStyle);
+                                            var polygon = L.polygon(polygonData, defaultStyleBuilding);
                                             var feature_id_name = "feature_id";
                                             angular.element(polygon).attr(feature_id_name, featureId);
                                             var layer = map.addLayer(polygon);
@@ -139,11 +141,16 @@ angular.module('snapplrApp')
 
                                             });
                                             polygon.on("mouseover", function (e) {
+                                                $log.info("mouseover", arguments);
+                                                e.target.setStyle(highlightStyleBuilding);
                                                 var popup = angular.element("#details");
                                                 popup.html("Name " + ": " + name + "<br/>ID: " + angular.element(polygon).attr(feature_id_name));
                                                 if ($scope.starredFeatures[featureId]) {
                                                     popup.append("<br><i class='fa-star'></i> starred ");
                                                 }
+                                            });
+                                            polygon.on("mouseout", function (e) {
+                                                e.target.setStyle(defaultStyleBuilding);
                                             });
                                         }
                                     }, function () {
