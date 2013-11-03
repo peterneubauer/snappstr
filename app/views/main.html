@@ -3,10 +3,26 @@
         <div ng-show="currentUser">
             <a class="brand" href="#">Welcome to Snapplr, {{currentUser.name}}!</a>
             <img ng-src="{{currentUser.image}}" class="avatar img-circle pull-right"/>
-            <!--<img height="70" src="http://assets.neo4j.org/new/img/logo-white.svg" class="img-circle"/>-->
-            <!--<img height="70" src="https://userbin-5d5.kxcdn.com/assets/logo@2x-8bce91e0d059335ec3a47290e254ecbf.png" class="img-circle"/>-->
-            <a class="btn ub-logout pull-right">Log out</a>
-            <a class="btn pull-right" ng-click="reset()">Reset</a>
+
+            <!--<div class="thumbnail">
+                <img src="http://assets.neo4j.org/new/img/logo-white.svg" class="img-circle"/>
+            </div>
+            <div class="thumbnail">
+                <img src="https://userbin-5d5.kxcdn.com/assets/logo@2x-8bce91e0d059335ec3a47290e254ecbf.png"/>
+            </div>
+            -->
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    Action <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a class="btn ub-logout">
+                        Log out</a></li>
+                    <li><a class="btn" ng-click="reset()">
+                        Reset</a></li>
+
+                </ul>
+            </div>
         </div>
         <div ng-hide="currentUser">
             <a class="btn ub-login">Log in with Userbin</a>
@@ -25,6 +41,7 @@
 </div>
 <div id="counter" ng-show="currentUser" class="shadow">
     <h4>Your starred stuff</h4>
+
     <div ng-repeat="(key, value) in starredFeatures">
         <i class="fa fa-star"></i> {{ value }} <br/>
     </div>

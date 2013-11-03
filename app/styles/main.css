@@ -5,16 +5,16 @@ body {
 }
 
 .navbar-inner {
-  height: 40px;
+    height: 40px;
 }
 
 .avatar {
-  height: 36px;
-  margin: 2px 0 0 15px;
+    height: 36px;
+    margin: 2px 0 0 15px;
 }
 
 .shadow {
-  box-shadow: 2px 2px 5px #999;
+    box-shadow: 2px 2px 5px #999;
 }
 
 #map {
@@ -50,9 +50,11 @@ body {
     background-color: darkslategrey;
     border-radius: 2px;
 }
+
 .fa-star {
     color: #ffff00;
 }
+
 #legend {
     position: absolute;
     bottom: 20px;
@@ -65,3 +67,8 @@ body {
     padding: 8px;
     border: 1px solid #ccc;
 }
+
+.thumbnail img {
+    min-height: 30px;
+    height: 30px;
+} 
