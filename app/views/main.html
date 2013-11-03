@@ -1,35 +1,31 @@
-<div>
-    <div class="navbar">
-        <div class="navbar-inner">
-            <div ng-show="currentUser">
-                <a class="brand" href="#">Welcome to Snapplr, {{currentUser.name}}!</a>
-                <img src="{{currentUser.image}}" class="img-circle pull-right"/>
-                <!--<img height="70" src="http://assets.neo4j.org/new/img/logo-white.svg" class="img-circle"/>-->
-                <!--<img height="70" src="https://userbin-5d5.kxcdn.com/assets/logo@2x-8bce91e0d059335ec3a47290e254ecbf.png" class="img-circle"/>-->
-                <a class="btn ub-logout pull-right">Log out</a>
-                <a class="btn pull-right" ng-click="reset()">Reset</a>
-            </div>
-            <div ng-hide="currentUser">
-                <a class="btn ub-login">Log in with Userbin</a>
-                <img src="{{currentUser.image}}" class="img-circle"/>
-                <a class="brand" href="#">Welcome to Snapplr, Human!</a>
-            </div>
+<div class="navbar">
+    <div class="navbar-inner">
+        <div ng-show="currentUser">
+            <a class="brand" href="#">Welcome to Snapplr, {{currentUser.name}}!</a>
+            <img ng-src="{{currentUser.image}}" class="avatar img-circle pull-right"/>
+            <!--<img height="70" src="http://assets.neo4j.org/new/img/logo-white.svg" class="img-circle"/>-->
+            <!--<img height="70" src="https://userbin-5d5.kxcdn.com/assets/logo@2x-8bce91e0d059335ec3a47290e254ecbf.png" class="img-circle"/>-->
+            <a class="btn ub-logout pull-right">Log out</a>
+            <a class="btn pull-right" ng-click="reset()">Reset</a>
         </div>
-        <div class="row">
-            <div leaflet id="map"></div>
+        <div ng-hide="currentUser">
+            <a class="btn ub-login">Log in with Userbin</a>
+            <img src="{{currentUser.image}}" class="img-circle"/>
+            <a class="brand" href="#">Welcome to Snapplr, Human!</a>
         </div>
-
-        <div id="spinner" ng-show="isLoading>0">Loading</div>
-        <div class="well" id="legend">
-            <h4>Legend</h4>
-
-            <div id="details"></div>
-        </div>
-        <div id="counter" ng-show="currentUser">
-            <h4>Your starred stuff</h4>
-            <div ng-repeat="(key, value) in starredFeatures">
-                <i class="fa fa-star"></i> {{ value }} <br/>
-            </div>
-        </div>
-
     </div>
+</div>
+<div leaflet id="map"></div>
+
+<div id="spinner" ng-show="isLoading>0" class="shadow">Loading...</div>
+<div class="well shadow" id="legend">
+    <h4>Legend</h4>
+
+    <div id="details"></div>
+</div>
+<div id="counter" ng-show="currentUser" class="shadow">
+    <h4>Your starred stuff</h4>
+    <div ng-repeat="(key, value) in starredFeatures">
+        <i class="fa fa-star"></i> {{ value }} <br/>
+    </div>
+</div>

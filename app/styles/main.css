@@ -4,26 +4,22 @@ body {
     color: #333;
 }
 
-.hero-unit {
-    margin: 50px auto 0 auto;
-    width: 300px;
-    font-size: 18px;
-    font-weight: 200;
-    line-height: 30px;
-    background-color: #eee;
-    border-radius: 6px;
-    padding: 60px;
+.navbar-inner {
+  height: 40px;
 }
 
-.hero-unit h1 {
-    font-size: 60px;
-    line-height: 1;
-    letter-spacing: -1px;
+.avatar {
+  height: 36px;
+  margin: 2px 0 0 15px;
+}
+
+.shadow {
+  box-shadow: 2px 2px 5px #999;
 }
 
 #map {
     position: absolute;
-    top: 100px;
+    top: 42px;
     left: 0;
     right: 0;
     bottom: 0;
@@ -32,23 +28,27 @@ body {
 #spinner {
     position: fixed;
     left: 50%;
-    top: 50%;
+    top: 30%;
     width: 100px;
+    padding: 55px 20px 20px;
+    margin-left: -50px;
     text-align: center;
     color: #ffffff;
     z-index: 1000;
-    background-color: #000000;
+    background: #000 url(../images/spinner.gif) 50% 20px no-repeat;
 }
 
 #counter {
     position: fixed;
-    right: 0%;
-    top: 10%;
+    right: 20px;
+    top: 62px;
     width: 200px;
+    padding: 10px;
     text-align: left;
     color: #ffffff;
     z-index: 1000;
     background-color: darkslategrey;
+    border-radius: 2px;
 }
 
 i {
