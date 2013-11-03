@@ -143,7 +143,7 @@ angular.module('snapplrApp')
                                             var polygon = L.polygon(polygonData, defaultStyleBuilding);
                                             $log.info("highway",name, highway,data);
                                             if(highway) {
-                                              polygon = L.polyline(polygonData, defaultStyleHighway);  
+                                              polygon = L.polyline(polygonData, defaultStyleHighway);
                                             }
                                             var feature_id_name = "feature_id";
                                             angular.element(polygon).attr(feature_id_name, featureId);
@@ -165,13 +165,13 @@ angular.module('snapplrApp')
                                                 var popup = angular.element("#details");
                                                 popup.html("Name " + ": " + name + "<br/>ID: " + angular.element(polygon).attr(feature_id_name));
                                                 if ($scope.starredFeatures[featureId]) {
-                                                    popup.append("<br><i class='fa-star'></i> starred ");
+                                                    popup.append("<br><i class='fa fa-star'></i> starred ");
                                                 }
                                                 polygon.on("mouseout", function (e) {
                                                     e.target.setStyle(style);
                                                 });
                                             });
-                                            
+
                                         }
                                     }, function () {
                                         $scope.isLoading--;
