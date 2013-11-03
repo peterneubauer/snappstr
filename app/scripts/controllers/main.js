@@ -5,7 +5,6 @@ angular.module('snapplrApp')
         $rootScope.currentUser = Userbin.user();
         $log.info("User:", Userbin.user());
         Userbin.on('login.success login.error logout.success', function () {
-            $log.info("User logged in", Userbin.user());
             $rootScope.currentUser = Userbin.user();
             $rootScope.$apply()
         });
@@ -17,7 +16,7 @@ angular.module('snapplrApp')
         $scope.$http = $http;
         $scope.starredFeatures = {};
         $scope.saveFeature = function (featureId, name) {
-            if(!$scope.currentUser){
+            if (!$scope.currentUser) {
                 return;
             }
             if (!$scope.starredFeatures[featureId]) {
@@ -31,10 +30,8 @@ angular.module('snapplrApp')
         $scope.reset = function () {
             if (!Userbin.user()) return false;
             Userbin.user().set("snapplr", {}).done(function () {
-                $log.info("cleared", arguments);
                 Userbin.user().get("snapplr").done(function (features) {
                     var feature = features.snapplr;
-                    $log.info('got', feature);
                     $scope.starredFeatures = feature;
                     $scope.$apply();
                 });
@@ -46,7 +43,6 @@ angular.module('snapplrApp')
             if (!$scope.$$phase) $scope.$apply();
             if (!Userbin.user()) return false;
             Userbin.user().get("snapplr").done(function (features) {
-                $log.info(arguments);
                 $scope.starredFeatures = features.snapplr;
                 $scope.$apply();
             });
@@ -65,7 +61,6 @@ angular.module('snapplrApp')
             link: function ($scope, elem, attrs) {
                 var $log = $scope.$log;
                 var $http = $scope.$http;
-                $log.info("Recognized the leaflet-rating directive usage", elem);
                 mapFactory.setMap(L.map(elem[0]).setView([55.61, 13.00], 16));
                 mapFactory.setJQuery($);
                 var APIKEY = '25eefd22fc3a4f58b056285afbec54dc';
@@ -77,7 +72,6 @@ angular.module('snapplrApp')
                 L.grid().addTo(map);
                 map.on("click", function (e) {
                     $scope.isLoading = 0;
-                    $log.info("map clicked", e);
                     var latlng = e.latlng;
                     var circle = L.circle([latlng.lat, latlng.lng], 10, {
                         color: 'red',
@@ -119,10 +113,17 @@ angular.module('snapplrApp')
                                 fillOpacity: 0.65,
                                 fillColor: '#2262CC'
                             };
+                            var favStyle = {
+                                color: '#FFFFFF',
+                                weight: 3,
+                                opacity: 0.6,
+                                fillOpacity: 0.65,
+                                fillColor: '#2262CC'
+                            };
                             for (var i = 0; i < response.data.length; i++) {
                                 var feature = response.data[i].self.substr(response.data[0].self.lastIndexOf('/') + 1);
                                 var cypher = "start n=node(" + feature + ") match n<-[:GEOM]-feature-[:FIRST_NODE]->first-[:NEXT*..]->next-[:NODE]->osm_node,  feature-[:TAGS]->tags where tags.name IS NOT NULL return id(feature) as feature_id,osm_node.lat,osm_node.lon, tags.name? as name, tags.highway? as highway, tags, feature";
-//                        $log.info(cypher);
+//                              $log.info(cypher);
                                 var $ = mapFactory.getJQuery();
                                 $scope.isLoading++;
                                 $http.post(neo4j_cypher, {
@@ -141,9 +142,9 @@ angular.module('snapplrApp')
                                                 polygonData.push([data[i][1], data[i][2]])
                                             }
                                             var polygon = L.polygon(polygonData, defaultStyleBuilding);
-                                            $log.info("highway",name, highway,data);
-                                            if(highway) {
-                                              polygon = L.polyline(polygonData, defaultStyleHighway);
+//                                            $log.info("highway", name, highway, data);
+                                            if (highway) {
+                                                polygon = L.polyline(polygonData, defaultStyleHighway);
                                             }
                                             var feature_id_name = "feature_id";
                                             angular.element(polygon).attr(feature_id_name, featureId);
@@ -151,7 +152,6 @@ angular.module('snapplrApp')
                                             polygon.on("click", function (e) {
 //                                                e.stopPropagation();
                                                 var featureId = e.target.feature_id;
-                                                $log.info("polygon clicked2", e, featureId, $scope.starredFeatures);
                                                 $scope.saveFeature(featureId, name);
 
                                                 $log.info("saving", $scope.starredFeatures);
@@ -159,7 +159,6 @@ angular.module('snapplrApp')
 
                                             });
                                             polygon.on("mouseover", function (e) {
-                                                $log.info("mouseover", arguments);
                                                 var style = e.target.options;
                                                 e.target.setStyle(highlightStyle);
                                                 var popup = angular.element("#details");

@@ -50,19 +50,18 @@ body {
     background-color: darkslategrey;
     border-radius: 2px;
 }
-
-i {
-    color: red;
-    z-index: 2000;
+.fa-star {
+    color: #ffff00;
 }
 #legend {
     position: absolute;
-    bottom: 85px;
-    left: 50px;
+    bottom: 20px;
+    left: 20px;
     width: 200px;
     height: 100px;
     zIndex: 1002;
-    /*backgroundColor: white;*/
+    border-style: solid;
+    background-color: #808080;
     padding: 8px;
     border: 1px solid #ccc;
 }
