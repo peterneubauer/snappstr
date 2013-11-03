@@ -16,6 +16,15 @@ angular.module('snapplrApp')
         $scope.$log = $log;
         $scope.$http = $http;
         $scope.starredFeatures = {};
+        $scope.saveFeature = function (featureId, name) {
+            if(!$scope.currentUser){
+                return;
+            }
+            if (!$scope.starredFeatures[featureId]) {
+                $scope.starredFeatures[featureId] = name;
+                $scope.$apply();
+            }
+        };
         $scope.$watch('starredFeatures', function (value) {
             $log.info("new features", $scope.starredFeatures);
         });
@@ -96,8 +105,15 @@ angular.module('snapplrApp')
                                 fillOpacity: 0.1,
                                 fillColor: "#2262CC"
                             };
-                            var highlightStyleBuilding = {
-                                color: '#2262CC',
+                            var defaultStyleHighway = {
+                                color: "#00FF00",
+                                weight: 3,
+                                opacity: 0.6,
+                                fillOpacity: 0.1,
+                                fillColor: "#2262CC"
+                            };
+                            var highlightStyle = {
+                                color: '#FF0000',
                                 weight: 3,
                                 opacity: 0.6,
                                 fillOpacity: 0.65,
@@ -105,7 +121,7 @@ angular.module('snapplrApp')
                             };
                             for (var i = 0; i < response.data.length; i++) {
                                 var feature = response.data[i].self.substr(response.data[0].self.lastIndexOf('/') + 1);
-                                var cypher = "start n=node(" + feature + ") match n<-[:GEOM]-feature-[:FIRST_NODE]->first-[:NEXT*..]->next-[:NODE]->osm_node,  feature-[:TAGS]->tags where tags.name IS NOT NULL return id(feature) as feature_id,osm_node.lat,osm_node.lon, tags.name as name";
+                                var cypher = "start n=node(" + feature + ") match n<-[:GEOM]-feature-[:FIRST_NODE]->first-[:NEXT*..]->next-[:NODE]->osm_node,  feature-[:TAGS]->tags where tags.name IS NOT NULL return id(feature) as feature_id,osm_node.lat,osm_node.lon, tags.name? as name, tags.highway? as highway, tags, feature";
 //                        $log.info(cypher);
                                 var $ = mapFactory.getJQuery();
                                 $scope.isLoading++;
@@ -120,10 +136,15 @@ angular.module('snapplrApp')
                                         if (data.length > 0) {
                                             var featureId = data[0][0];
                                             var name = data[0][3];
+                                            var highway = data[0][4];
                                             for (var i = 0; i < data.length; i++) {
                                                 polygonData.push([data[i][1], data[i][2]])
                                             }
                                             var polygon = L.polygon(polygonData, defaultStyleBuilding);
+                                            $log.info("highway",name, highway,data);
+                                            if(highway) {
+                                              polygon = L.polyline(polygonData, defaultStyleHighway);  
+                                            }
                                             var feature_id_name = "feature_id";
                                             angular.element(polygon).attr(feature_id_name, featureId);
                                             var layer = map.addLayer(polygon);
@@ -131,10 +152,7 @@ angular.module('snapplrApp')
 //                                                e.stopPropagation();
                                                 var featureId = e.target.feature_id;
                                                 $log.info("polygon clicked2", e, featureId, $scope.starredFeatures);
-                                                if (!$scope.starredFeatures[featureId]) {
-                                                    $scope.starredFeatures[featureId] = name;
-                                                    $scope.$apply();
-                                                }
+                                                $scope.saveFeature(featureId, name);
 
                                                 $log.info("saving", $scope.starredFeatures);
                                                 Userbin.user().set("snapplr", angular.copy($scope.starredFeatures));
@@ -142,16 +160,18 @@ angular.module('snapplrApp')
                                             });
                                             polygon.on("mouseover", function (e) {
                                                 $log.info("mouseover", arguments);
-                                                e.target.setStyle(highlightStyleBuilding);
+                                                var style = e.target.options;
+                                                e.target.setStyle(highlightStyle);
                                                 var popup = angular.element("#details");
                                                 popup.html("Name " + ": " + name + "<br/>ID: " + angular.element(polygon).attr(feature_id_name));
                                                 if ($scope.starredFeatures[featureId]) {
                                                     popup.append("<br><i class='fa-star'></i> starred ");
                                                 }
+                                                polygon.on("mouseout", function (e) {
+                                                    e.target.setStyle(style);
+                                                });
                                             });
-                                            polygon.on("mouseout", function (e) {
-                                                e.target.setStyle(defaultStyleBuilding);
-                                            });
+                                            
                                         }
                                     }, function () {
                                         $scope.isLoading--;

@@ -25,8 +25,8 @@
 
             <div id="details"></div>
         </div>
-        <div id="counter">
-            <h4>Starred stuff</h4>
+        <div id="counter" ng-show="currentUser">
+            <h4>Your starred stuff</h4>
 
             <div ng-repeat="(key, value) in starredFeatures">
                 <i class="fa-star"></i> {{ value }} <br/>
