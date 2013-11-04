@@ -1,61 +1,30 @@
 'use strict';
 
 angular.module('snapplrApp')
-    .run(function ($rootScope, $log) {
+    .run(function ($rootScope, $log, StarredFeatures) {
         $rootScope.currentUser = Userbin.user();
         $log.info("User:", Userbin.user());
         Userbin.on('login.success login.error logout.success', function () {
             $rootScope.currentUser = Userbin.user();
             $rootScope.$apply()
         });
-
+        Userbin.on('login.success logout.success', StarredFeatures.get)
 
     })
-    .controller('MainCtrl', function ($scope, $log, $http, mapFactory) {
+    .controller('MainCtrl', function ($scope, $log, $http, mapFactory, StarredFeatures) {
         $scope.$log = $log;
         $scope.$http = $http;
-        $scope.starredFeatures = {};
-        $scope.saveFeature = function (featureId, name) {
-            if (!$scope.currentUser) {
-                return;
-            }
-            if (!$scope.starredFeatures[featureId]) {
-                $scope.starredFeatures[featureId] = name;
-                $scope.$apply();
-            }
-        };
+        $scope.starredFeatures = StarredFeatures.get();
         $scope.$watch('starredFeatures', function (value) {
             $log.info("new features", $scope.starredFeatures);
         });
         $scope.reset = function () {
-            if (!Userbin.user()) return false;
-            Userbin.user().set("snapplr", {}).done(function () {
-                Userbin.user().get("snapplr").done(function (features) {
-                    var feature = features.snapplr;
-                    $scope.starredFeatures = feature;
-                    $scope.$apply();
-                });
-            });
+            StarredFeatures.clear()
         }
-
-        var refresh = function () {
-            $scope.starredFeatures = [];
-            if (!$scope.$$phase) $scope.$apply();
-            if (!Userbin.user()) return false;
-            Userbin.user().get("snapplr").done(function (features) {
-                $scope.starredFeatures = features.snapplr;
-                $scope.$apply();
-            });
-        }
-        refresh();
-        Userbin.on('login.success logout.success', function () {
-            refresh();
-        })
     }
 )
     .
-    directive('leaflet', function (mapFactory, Auth, $window) {
-
+    directive('leaflet', function (mapFactory, Auth, $window,StarredFeatures) {
         return {
             restrict: 'A',
             link: function ($scope, elem, attrs) {
@@ -158,10 +127,8 @@ angular.module('snapplrApp')
                                             polygon.on("click", function (e) {
 //                                                e.stopPropagation();
                                                 var featureId = e.target.feature_id;
-                                                $scope.saveFeature(featureId, name);
-
                                                 $log.info("saving", $scope.starredFeatures);
-                                                Userbin.user().set("snapplr", angular.copy($scope.starredFeatures));
+                                                StarredFeatures.set(featureId, name);
 
                                             });
                                             polygon.on("mouseover", function (e) {
