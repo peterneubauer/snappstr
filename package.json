@@ -45,6 +45,5 @@
     "node": ">=0.8.0"
   },
   "scripts": {
-    "postinstall": "echo postinstall time;./node_modules/bower/bin/bower install"
   }
 }
