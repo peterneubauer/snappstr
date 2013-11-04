@@ -3,8 +3,8 @@ angular.module('snapplrApp')
   'Storage',
   function(Storage) {
     var STORAGE_KEY = 'snapplr';
-    items = {};
-    starStore = {
+    var items = {};
+    var starStore = {
       get: function (success, error) {
         var q = Storage.get(STORAGE_KEY);
         q.then(function(response) {
