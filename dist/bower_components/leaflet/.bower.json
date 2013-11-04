@@ -1,0 +1,14 @@
+{
+  "name": "leaflet",
+  "_cacheHeaders": {
+    "ETag": "\"8ec311244cb01317a44979ec7b04f7d4\"",
+    "Last-Modified": "Thu, 25 Jul 2013 10:12:32 GMT",
+    "Content-Length": "120487",
+    "Content-Type": "application/javascript"
+  },
+  "_release": "e-tag:8ec311244",
+  "main": "index.js",
+  "_source": "http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js",
+  "_target": "*",
+  "_originalSource": "http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"
+}

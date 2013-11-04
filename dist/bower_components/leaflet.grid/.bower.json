@@ -1,0 +1,14 @@
+{
+  "name": "leaflet.grid",
+  "_cacheHeaders": {
+    "ETag": "\"6bf7aa925ef46c9d20718ee2c6860cca\"",
+    "Content-Length": "4668",
+    "Content-Type": "text/plain; charset=utf-8",
+    "Content-Disposition": "inline"
+  },
+  "_release": "e-tag:6bf7aa925",
+  "main": "index.js",
+  "_source": "https://raw.github.com/jieter/Leaflet.Grid/master/L.Grid.js",
+  "_target": "*",
+  "_originalSource": "https://raw.github.com/jieter/Leaflet.Grid/master/L.Grid.js"
+}

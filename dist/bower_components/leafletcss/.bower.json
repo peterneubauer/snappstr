@@ -1,0 +1,14 @@
+{
+  "name": "leafletcss",
+  "_cacheHeaders": {
+    "ETag": "\"3a90479d1d51b15a44208f18d1f791aa\"",
+    "Last-Modified": "Thu, 25 Jul 2013 10:12:31 GMT",
+    "Content-Length": "10241",
+    "Content-Type": "text/css"
+  },
+  "_release": "e-tag:3a90479d1",
+  "main": "index.css",
+  "_source": "http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css",
+  "_target": "*",
+  "_originalSource": "http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css"
+}
