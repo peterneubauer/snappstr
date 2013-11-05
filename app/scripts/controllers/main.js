@@ -11,6 +11,18 @@ angular.module('snapplrApp')
         Userbin.on('login.success logout.success', StarredFeatures.get)
 
     })
+    .config(function ($httpProvider, $windowProvider) {
+        var encoded = window.btoa("snapplr" + ':' + "zki1hvIvPp491lDzvmiV");
+//        var neo4j_auth_config = {
+//            headers: {
+//                Authorization: "Basic " + encoded
+//            }
+//        };
+        $httpProvider.defaults.headers.common = {
+            Authorization: "Basic " + encoded,
+            Hej2: "du"
+        };
+    })
     .controller('MainCtrl', function ($scope, $log, $http, mapFactory, StarredFeatures) {
         $scope.$log = $log;
         $scope.$http = $http;
@@ -24,7 +36,11 @@ angular.module('snapplrApp')
     }
 )
     .
-    directive('leaflet', function (mapFactory, Auth, $window,StarredFeatures) {
+    directive('leaflet', function (mapFactory, $window, $http, $log, StarredFeatures) {
+        var base_neo4j_url = 'http://snapplr.sb01.stations.graphenedb.com:24789/db/data/';
+//        var base_neo4j_url = 'http://127.0.0.1:7474/db/data/';
+        var neo4j_cypher = base_neo4j_url + 'cypher';
+        var neo4j_distance = base_neo4j_url + 'ext/SpatialPlugin/graphdb/findClosestGeometries';
         return {
             restrict: 'A',
             link: function ($scope, elem, attrs) {
@@ -47,15 +63,11 @@ angular.module('snapplrApp')
                         fillColor: '#f03',
                         fillOpacity: 0.5
                     }).addTo(mapFactory.getMap());
-                    var base_neo4j_url = 'http://snapplr.sb01.stations.graphenedb.com:24789/db/data/';
-                    var neo4j_cypher = base_neo4j_url + 'cypher';
-                    var neo4j_distance = base_neo4j_url + 'ext/SpatialPlugin/graphdb/findClosestGeometries';
-//                    Auth.setCredentials("snapplr", "zki1hvIvPp491lDzvmiV");
-                    var encoded = $window.btoa("snapplr" + ':' + "zki1hvIvPp491lDzvmiV");
-                    $http.defaults.headers.common.Authorization = 'Basic ' + encoded;
-                    $log.info("auth", encoded);
-                    $log.info("http", $http.defaults);
                     $scope.isLoading++;
+                    $http.get(base_neo4j_url, {headers: {"hej": "hej"}}).then(function (res) {
+                            $log.info("done");
+                        }
+                    )
                     $http.post(neo4j_distance, {
                         layer: "malmo_small_map.osm",
                         pointX: latlng.lng,
@@ -155,7 +167,8 @@ angular.module('snapplrApp')
             }
         }
     })
-    .factory('mapFactory', function () {
+    .
+    factory('mapFactory', function () {
         var map = null;
         var jq = null;
 
@@ -173,13 +186,4 @@ angular.module('snapplrApp')
                 return jq;
             }
         };
-    })
-    .factory('Auth', function ($window, $http, $log) {
-        return {
-            setCredentials: function (username, password) {
-                var encoded = $window.btoa(username + ':' + password);
-                $log.info("auth", encoded);
-                $http.defaults.headers.common.Authorization = 'Basic ' + encoded;
-            }
-        }
     })     
