@@ -13,11 +13,6 @@ angular.module('snapplrApp')
     })
     .config(function ($httpProvider, $windowProvider) {
         var encoded = window.btoa("snapplr" + ':' + "zki1hvIvPp491lDzvmiV");
-//        var neo4j_auth_config = {
-//            headers: {
-//                Authorization: "Basic " + encoded
-//            }
-//        };
         $httpProvider.defaults.headers.common = {
             Authorization: "Basic " + encoded
         };
@@ -25,10 +20,8 @@ angular.module('snapplrApp')
     .controller('MainCtrl', function ($scope, $log, $http, mapFactory, StarredFeatures) {
         $scope.$log = $log;
         $scope.$http = $http;
+        $scope.showHelp = false;
         $scope.starredFeatures = StarredFeatures.get();
-        $scope.$watch('starredFeatures', function (value) {
-            $log.info("new features", $scope.starredFeatures);
-        });
         $scope.reset = function () {
             StarredFeatures.clear()
         }

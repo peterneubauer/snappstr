@@ -38,6 +38,19 @@ body {
     background: #000 url(../images/spinner.gif) 50% 20px no-repeat;
 }
 
+#help {
+    position: fixed;
+    left: 50%;
+    top: 30%;
+    width: 300px;
+    padding: 55px 20px 20px;
+    margin-left: -50px;
+    text-align: left;
+    color: #ffffff;
+    z-index: 2000;
+    background: #000;
+}
+
 #counter {
     position: fixed;
     right: 20px;

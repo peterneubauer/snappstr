@@ -23,6 +23,9 @@
 
                 </ul>
             </div>
+            <div class="badge-info badge pull-right" ng-mouseenter="showHelp=true" ng-mouseout="showHelp=false">
+                help
+            </div>
         </div>
         <div ng-hide="currentUser">
             <a class="btn ub-login">Log in with Userbin</a>
@@ -44,4 +47,15 @@
     <div ng-repeat="(key, value) in starredFeatures">
         <i class="fa fa-star"></i> {{ value }} <br/>
     </div>
+</div>
+
+<div class="well shadow" id="help" ng-show="showHelp">
+    <h4>Help</h4>
+    <ul>
+        <li>click on the map to see Open Street Map Buildings and Ways with their nearest edge closer than 10m to you
+        </li>
+        <li>Log in with Github in order to be able to save you starred buildings and streets</li>
+        <li>Being logged-in, click on a place, then click on a highlighted feature in order to star it.</li>
+        <li>Hit Actions->Reset to reset your starred features.</li>
+    </ul>
 </div>
