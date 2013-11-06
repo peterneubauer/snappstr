@@ -19,8 +19,7 @@ angular.module('snapplrApp')
 //            }
 //        };
         $httpProvider.defaults.headers.common = {
-            Authorization: "Basic " + encoded,
-            Hej2: "du"
+            Authorization: "Basic " + encoded
         };
     })
     .controller('MainCtrl', function ($scope, $log, $http, mapFactory, StarredFeatures) {
@@ -64,10 +63,7 @@ angular.module('snapplrApp')
                         fillOpacity: 0.5
                     }).addTo(mapFactory.getMap());
                     $scope.isLoading++;
-                    $http.get(base_neo4j_url, {headers: {"hej": "hej"}}).then(function (res) {
-                            $log.info("done");
-                        }
-                    )
+                    $scope.$apply();
                     $http.post(neo4j_distance, {
                         layer: "malmo_small_map.osm",
                         pointX: latlng.lng,
@@ -186,4 +182,4 @@ angular.module('snapplrApp')
                 return jq;
             }
         };
-    })     
+    })

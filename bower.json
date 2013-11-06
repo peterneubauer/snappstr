@@ -10,7 +10,6 @@
         "angular-cookies": "~1.0.7",
         "angular-sanitize": "~1.0.7",
         "leaflet": "http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js",
-        "leafletcss": "http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css",
         "leaflet.grid": "https://raw.github.com/jieter/Leaflet.Grid/master/L.Grid.js"
     },
     "devDependencies": {
