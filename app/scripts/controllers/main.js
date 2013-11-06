@@ -42,6 +42,14 @@ angular.module('snapplrApp')
                 mapFactory.setJQuery($);
                 var APIKEY = '25eefd22fc3a4f58b056285afbec54dc';
                 var map = mapFactory.getMap();
+                map.dragging.disable();
+                var bounds = L.polygon([[55.6268,12.9204],[55.6268,13.0686],[55.5538,13.0686],[55.5538,12.9204]],{
+                    color: "#222222",
+                    fillOpacity: 0.01
+                });
+//                bounds.bindPopup("Map bounds for this demo.");
+                $log.info("bounds", bounds);
+                bounds.addTo(map);
                 L.tileLayer('http://{s}.tile.cloudmade.com/' + APIKEY + '/112595/256/{z}/{x}/{y}.png', {
                     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
                     maxZoom: 18
