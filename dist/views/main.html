@@ -1,16 +1,8 @@
 <div class="navbar">
     <div class="navbar-inner">
         <div ng-show="currentUser">
-            <a class="brand" href="#">Hej Welcome to Snapplr, {{currentUser.name}}!</a>
+            <a class="brand" href="#">Welcome to Snapplr, {{currentUser.name}}!</a>
             <img ng-src="{{currentUser.image}}" class="avatar img-circle pull-right">
-
-            <!--<div class="thumbnail">
-                <img src="http://assets.neo4j.org/new/img/logo-white.svg" class="img-circle"/>
-            </div>
-            <div class="thumbnail">
-                <img src="https://userbin-5d5.kxcdn.com/assets/logo@2x-8bce91e0d059335ec3a47290e254ecbf.png"/>
-            </div>
-            -->
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                     Action <span class="caret"></span>
@@ -22,6 +14,9 @@
                         Reset</a></li>
 
                 </ul>
+            </div>
+            <div class="badge-info badge pull-right" ng-mouseenter="showHelp=true" ng-mouseout="showHelp=false">
+                Help
             </div>
         </div>
         <div ng-hide="currentUser">
@@ -44,4 +39,19 @@
     <div ng-repeat="(key, value) in starredFeatures">
         <i class="fa fa-star"></i> {{ value }} <br>
     </div>
+</div>
+
+<div class="well shadow" id="help" ng-show="showHelp">
+    <h4>Help</h4>
+    <p>Snapplr is a little application buitl to show off the concept of exploring and attaching things to features in your immediate vicinity.
+    Eventually, you will be able to attach pictures, playlists, events and statuses to buidlings, streets and other geographic features, and discover
+    what others like by just being in the vicinity to the same features (e.g. the other side of the same building).</p>
+    <p>Snapplr is developed using the <a href="http://neo4j.org">Neo4j Graph Database</a> and the <a href="http://userbin.com">Userbin Rapid Application framework.</a> </p>
+    <ul>
+        <li>click on the map to see Open Street Map Buildings and Ways with their nearest edge closer than 10m to you
+        </li>
+        <li>Log in with Github in order to be able to save you starred buildings and streets</li>
+        <li>Being logged-in, click on a place, then click on a highlighted feature in order to star it.</li>
+        <li>Hit Actions->Reset to reset your starred features.</li>
+    </ul>
 </div>
