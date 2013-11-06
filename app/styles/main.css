@@ -4,6 +4,10 @@ body {
     color: #333;
 }
 
+a {
+    cursor: pointer;
+}
+
 .navbar-inner {
     height: 40px;
 }
@@ -41,14 +45,19 @@ body {
 #help {
     position: fixed;
     left: 50%;
-    top: 30%;
+    top: 10%;
     width: 300px;
-    padding: 55px 20px 20px;
-    margin-left: -50px;
+    padding: 20px 40px 20px;
+    margin-left: -170px;
     text-align: left;
     color: #ffffff;
     z-index: 2000;
     background: #000;
+}
+#help .dismiss {
+    color: #fff;
+    font-size: 18px;
+    text-decoration: none;
 }
 
 #counter {
@@ -84,4 +93,4 @@ body {
 .thumbnail img {
     min-height: 30px;
     height: 30px;
-} 
+}

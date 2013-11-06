@@ -8,19 +8,18 @@
                     Action <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a class="btn ub-logout">
+                    <li><a class="ub-logout">
                         Log out</a></li>
-                    <li><a class="btn" ng-click="reset()">
+                    <li><a ng-click="reset()">
                         Reset</a></li>
-
+                    <li><a ng-click="showHelp = true">
+                        About</a></li>
                 </ul>
-            </div>
-            <div class="badge-info badge pull-right" ng-mouseenter="showHelp=true" ng-mouseout="showHelp=false">
-                Help
             </div>
         </div>
         <div ng-hide="currentUser">
-            <a class="btn ub-login">Log in with Userbin</a>
+            <a class="btn ub-login">Log in to save your locations</a>
+            <a class="btn" ng-click="showHelp = true">About</a>
             <a class="brand" href="#">Welcome to Snapplr, Human!</a>
         </div>
     </div>
@@ -42,11 +41,12 @@
 </div>
 
 <div class="well shadow" id="help" ng-show="showHelp">
+    <a class="dismiss pull-right" ng-click='showHelp = false'>&times;</a>
     <h4>Help</h4>
-    <p>Snapplr is a little application buitl to show off the concept of exploring and attaching things to features in your immediate vicinity.
-    Eventually, you will be able to attach pictures, playlists, events and statuses to buidlings, streets and other geographic features, and discover
+    <p>Snapplr is a little application built to show off the concept of exploring and attaching things to features in your immediate vicinity.
+    Eventually, you will be able to attach pictures, playlists, events and statuses to buildings, streets and other geographic features, and discover
     what others like by just being in the vicinity to the same features (e.g. the other side of the same building).</p>
-    <p>Snapplr is developed using the <a href="http://neo4j.org">Neo4j Graph Database</a> and the <a href="http://userbin.com">Userbin Rapid Application framework.</a> </p>
+    <p>Snapplr is developed using the <a href="http://neo4j.org" target="_new">Neo4j Graph Database</a> and the <a href="http://userbin.com" target="_new">Userbin Rapid Application framework.</a> </p>
     <ul>
         <li>click on the map to see Open Street Map Buildings and Ways with their nearest edge closer than 10m to you
         </li>

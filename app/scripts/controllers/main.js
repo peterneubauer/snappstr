@@ -20,7 +20,7 @@ angular.module('snapplrApp')
     .controller('MainCtrl', function ($scope, $log, $http, mapFactory, StarredFeatures) {
         $scope.$log = $log;
         $scope.$http = $http;
-        $scope.showHelp = false;
+        $scope.showHelp = true;
         $scope.starredFeatures = StarredFeatures.get();
         $scope.reset = function () {
             StarredFeatures.clear()
