@@ -1,15 +1,12 @@
 'use strict';
 
 angular.module('snapplrApp')
-    .run(function ($rootScope, $log, StarredFeatures) {
+    .run(function ($rootScope, $log, StarredFeatures, Userbin) {
         $rootScope.currentUser = Userbin.user();
-        $log.info("User:", Userbin.user());
-        Userbin.on('login.success login.error logout.success', function () {
-            $rootScope.currentUser = Userbin.user();
-            $rootScope.$apply()
+        $rootScope.$on('userbin:authenticated', function (evt, user) {
+            StarredFeatures.get()
+            $rootScope.currentUser = user
         });
-        Userbin.on('login.success logout.success', StarredFeatures.get)
-
     })
     .config(function ($httpProvider, $windowProvider) {
         var encoded = window.btoa("snapplr" + ':' + "zki1hvIvPp491lDzvmiV");
@@ -48,7 +45,7 @@ angular.module('snapplrApp')
                     fillOpacity: 0.01
                 });
 //                bounds.bindPopup("Map bounds for this demo.");
-                $log.info("bounds", bounds);
+//                $log.info("bounds", bounds);
                 bounds.addTo(map);
                 L.tileLayer('http://{s}.tile.cloudmade.com/' + APIKEY + '/112595/256/{z}/{x}/{y}.png', {
                     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',

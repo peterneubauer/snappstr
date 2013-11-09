@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('snapplrApp', [
+  'userbin',
   'ngCookies',
   'ngSanitize'
 ])

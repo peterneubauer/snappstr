@@ -1,7 +1,7 @@
 angular.module('snapplrApp')
 .service('Storage', [
-  '$q', '$rootScope',
-  function($q, $rootScope) {
+  '$q', '$rootScope', 'Userbin',
+  function($q, $rootScope, Userbin) {
     var dummyAdapter = {
       get: function() {
         var dfd = $q.defer();
