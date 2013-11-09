@@ -18,7 +18,15 @@ a {
 }
 
 .shadow {
-    box-shadow: 2px 2px 5px #999;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    border: 0;
+}
+
+.puff {
+    color: #ffffff;
+    z-index: 1000;
+    background-color: darkslategrey;
+    border-radius: 2px;
 }
 
 #map {
@@ -48,7 +56,7 @@ a {
     top: 10%;
     width: 400px;
     padding: 20px 40px 20px;
-    margin-left: -170px;
+    margin-left: -220px;
     text-align: left;
     color: #ffffff;
     z-index: 2000;
@@ -67,10 +75,6 @@ a {
     width: 200px;
     padding: 10px;
     text-align: left;
-    color: #ffffff;
-    z-index: 1000;
-    background-color: darkslategrey;
-    border-radius: 2px;
 }
 
 .fa-star {
@@ -83,11 +87,7 @@ a {
     left: 20px;
     width: 200px;
     height: 100px;
-    zIndex: 1002;
-    border-style: solid;
-    background-color: #808080;
-    padding: 8px;
-    border: 1px solid #ccc;
+    z-index: 1002;
 }
 
 .thumbnail img {
